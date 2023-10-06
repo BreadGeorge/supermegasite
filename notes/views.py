@@ -2,6 +2,8 @@ from django.shortcuts import render, redirect
 from .forms import BasicNoteForm, ScheduleBlockForm
 from .models import BasicNote, ScheduleBlock
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
+from django.core.exceptions import ObjectDoesNotExist
 
 
 def index(request):
@@ -55,13 +57,29 @@ def index(request):
     return render(request, "notes/index.html", context)
 
 
+@login_required(login_url='/users/login_user/')
 def delete_note(request, note_id):
-    note = BasicNote.objects.get(pk=note_id)
-    note.delete()
+    try:
+        note = BasicNote.objects.get(pk=note_id)
+    except ObjectDoesNotExist:
+        messages.success(request, "You don't have the permission to perform this action!")
+        return redirect('index')
+    if note.user == request.user:
+        note.delete()
+    else:
+        messages.success(request, "You don't have the permission to perform this action!")
     return redirect('index')
 
 
+@login_required
 def delete_block(request, block_id):
-    block = ScheduleBlock.objects.get(pk=block_id)
-    block.delete()
+    try:
+        block = ScheduleBlock.objects.get(pk=block_id)
+    except ObjectDoesNotExist:
+        messages.success(request, "You don't have the permission to perform this action!")
+        return redirect('index')
+    if block.user == request.user:
+        block.delete()
+    else:
+        messages.success(request, "You don't have the permission to perform this action!")
     return redirect('index')
