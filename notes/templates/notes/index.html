@@ -2,30 +2,6 @@
 
 {% block content %}
 
-<!--
-<div class="d-grid gap-2 d-md-flex justify-content-md-end">
-        <button type="button" class="btn btn-lg btn-danger" data-bs-toggle="popover" data-bs-title="Add Note" data-bs-placement="left"  data-html="true" data-bs-content="">Add Note</button>
-</div>
-
-
-    <div class="col">
-          <div class="card mb-3">
-            <div class="row g-0">
-                <div class="col-md-4">
-                    <img src="https://cdn.7tv.app/emote/6258ea1dc7b4050100611b23/4x.webp" class="img-fluid rounded-start" alt="...">
-                </div>
-                <div class="col-md-8">
-                  <div class="card-body">
-                    <h5 class="card-title">Card title</h5>
-                    <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                    <p class="card-text"><small class="text-body-secondary">Last updated 3 mins ago</small></p>
-                  </div>
-                </div>
-            </div>
-          </div>
-        </div>
-//-->
-
 {% if user.is_authenticated %}
 
 <div class="container">
@@ -69,12 +45,14 @@
   </div>
 </div>
 
-<div class="container">
+<h4>Schedule</h4>
+
+<div class="container" style="background-color: silver">
   <div class="row">
     <div class="col-12">
       <div class="row day-columns">
-        <div class="day-column">
-          <div class="day-header">Monday</div>
+        <div class="day-column border border-dark-subtle border-3 border-end-0 border-start-0">
+          <div class="day-header rounded-pill" style="background-color: firebrick; color: white;">Monday</div>
           <div class="day-content">
             {% for block in schedulemonday %}
               <a href="{% url 'delete_block' block.id %}" style="text-decoration:none">
@@ -90,8 +68,8 @@
           </div>
           <div class="day-footer">{{schedulemonday|length}} Task{% if schedulemonday|length != 1%}s{% endif %}</div>
         </div>
-        <div class="day-column">
-          <div class="day-header">Tuesday</div>
+        <div class="day-column border border-dark-subtle border-3 border-end-0">
+          <div class="day-header rounded-pill" style="background-color: darkorange;">Tuesday</div>
           <div class="day-content">
             {% for block in scheduletuesday %}
               <a href="{% url 'delete_block' block.id %}" style="text-decoration:none">
@@ -107,8 +85,8 @@
           </div>
           <div class="day-footer">{{scheduletuesday|length}} Task{% if scheduletuesday|length != 1%}s{% endif %}</div>
         </div>
-        <div class="day-column">
-          <div class="day-header">Wednesday</div>
+        <div class="day-column border border-dark-subtle border-3 border-end-0">
+          <div class="day-header rounded-pill" style="background-color: gold;">Wednesday</div>
           <div class="day-content">
             {% for block in schedulewednesday %}
               <a href="{% url 'delete_block' block.id %}" style="text-decoration:none">
@@ -124,8 +102,8 @@
           </div>
           <div class="day-footer">{{schedulewednesday|length}} Task{% if schedulewednesday|length != 1%}s{% endif %}</div>
         </div>
-        <div class="day-column">
-          <div class="day-header">Thursday</div>
+        <div class="day-column border border-dark-subtle border-3 border-end-0">
+          <div class="day-header rounded-pill" style="background-color: greenyellow;">Thursday</div>
           <div class="day-content">
             {% for block in schedulethursday %}
               <a href="{% url 'delete_block' block.id %}" style="text-decoration:none">
@@ -141,8 +119,8 @@
           </div>
           <div class="day-footer">{{schedulethursday|length}} Task{% if schedulethursday|length != 1%}s{% endif %}</div>
         </div>
-        <div class="day-column">
-          <div class="day-header">Friday</div>
+        <div class="day-column border border-dark-subtle border-3 border-end-0">
+          <div class="day-header rounded-pill" style="background-color: lightblue;">Friday</div>
           <div class="day-content">
             {% for block in schedulefriday %}
               <a href="{% url 'delete_block' block.id %}" style="text-decoration:none">
@@ -158,8 +136,8 @@
           </div>
           <div class="day-footer">{{schedulefriday|length}} Task{% if schedulefriday|length != 1%}s{% endif %}</div>
         </div>
-        <div class="day-column">
-          <div class="day-header">Saturday</div>
+        <div class="day-column border border-dark-subtle border-3 border-end-0">
+          <div class="day-header rounded-pill" style="background-color: royalblue; color: white;">Saturday</div>
           <div class="day-content">
             {% for block in schedulesaturday %}
               <a href="{% url 'delete_block' block.id %}" style="text-decoration:none">
@@ -175,8 +153,8 @@
           </div>
           <div class="day-footer">{{schedulesaturday|length}} Task{% if schedulesaturday|length != 1%}s{% endif %}</div>
         </div>
-        <div class="day-column">
-          <div class="day-header">Sunday</div>
+        <div class="day-column border border-dark-subtle border-3 border-end-0">
+          <div class="day-header rounded-pill" style="background-color: darkviolet; color: white;">Sunday</div>
           <div class="day-content">
             {% for block in schedulesunday %}
               <a href="{% url 'delete_block' block.id %}" style="text-decoration:none">
@@ -196,6 +174,9 @@
     </div>
   </div>
 </div>
+
+<h4>Notes</h4>
+
 
 <div class="container text-center">
   <div class="row row-cols-4  g-3 g-lg-3">
@@ -239,6 +220,9 @@
                 <p class="card-text">{{note.desc}}</p>
                 <p class="card-text"><small class="text-body-secondary">{% if note.until %}{{note.until}}{% endif %}</small></p>
               </div>
+                <div class="form-check form-check-reverse">
+                    <input class="form-check-input" type="checkbox" id="checkboxNote-{{note.id}}" value="" aria-label="...">
+                </div>
             </div>
         </div>
       </div>
@@ -248,15 +232,12 @@
 </div>
 
 
-
 {% else %}
+
     <div class="alert alert-info" role="alert">
-        <h4 class="alert-heading">Please log in to add/edit notes.</h4>
+        <h5 class="alert-heading">Please log in to add/edit notes.</h5>
     </div>
+
 {% endif %}
-
-
-
-
 
 {% endblock %}

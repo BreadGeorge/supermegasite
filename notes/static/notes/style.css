@@ -2,6 +2,19 @@ body {
     background-color: lightgray;
 }
 
+h4:before,  h4:after {
+            content: "";
+            flex: 1 1;
+            border-bottom: 2px solid #000;
+            margin: auto;
+        }
+
+h4 {
+            display: flex;
+            flex-direction: row;
+            font-family: 'Newsreader', serif;
+        }
+
 $border-color: #ebedf2;
 $title-color: #898b96;
 
