@@ -71,7 +71,7 @@ def delete_note(request, note_id):
     return redirect('index')
 
 
-@login_required
+@login_required(login_url='/users/login_user/')
 def delete_block(request, block_id):
     try:
         block = ScheduleBlock.objects.get(pk=block_id)
