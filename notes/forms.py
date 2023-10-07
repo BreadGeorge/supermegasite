@@ -6,8 +6,8 @@ from .models import BasicNote, ScheduleBlock
 class BasicNoteForm(ModelForm):
     image = forms.ImageField(widget=forms.FileInput(attrs={"id" : "image_field"}), required=False)
     until = forms.DateTimeField(widget=forms.DateTimeInput(format='%D/%M/%Y %H:%M', attrs={'type': 'datetime-local'}),
-                              required=False)
-    desc = forms.CharField(required=False)
+                              required=False, label="Date")
+    desc = forms.CharField(required=False, label="Description")
 
     class Meta:
         model = BasicNote
